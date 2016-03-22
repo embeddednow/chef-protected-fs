@@ -5,3 +5,5 @@ license 'all_rights'
 description 'Installs/Configures protected-fs'
 long_description 'Installs/Configures protected-fs'
 version '0.1.0'
+
+depends "apt"
