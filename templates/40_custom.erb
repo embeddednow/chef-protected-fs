@@ -17,7 +17,7 @@ menuentry 'Root File System Unprotected' --class ubuntu --class gnu-linux --clas
 	else
 	  search --no-floppy --fs-uuid --set=root <%= @disk_uuid %>
 	fi
-	linux	/boot/vmlinuz-3.13.0-79-generic root=UUID=<%= @disk_uuid %> ro  quiet splash $vt_handoff overlayroot=disabled
-	initrd	/boot/initrd.img-3.13.0-79-generic
+	linux	/boot/vmlinuz-<%= @version %>-generic root=UUID=<%= @disk_uuid %> ro  quiet splash $vt_handoff overlayroot=disabled
+	initrd	/boot/initrd.img-<%= @version %>-generic
 }
 

@@ -6,6 +6,11 @@
 
 include_recipe 'apt'
 
+# SETUP
+grub_config = File.read('/boot/grub/grub.cfg')
+matches = grub_config.match(/^\tlinux\s+\/boot\/vmlinuz-(?<version>.*)-generic.*$/)
+version_str = matches['version']
+
 # INSTALL OVERLAYROOT
 
 package 'overlayroot' do
@@ -43,7 +48,10 @@ template '/etc/grub.d/40_custom' do
   group     'root'
   user      'root'
   mode      '0755'
-  variables disk_uuid: node['filesystem'][boot_disk]['uuid']
+  variables {
+              disk_uuid: node['filesystem'][boot_disk]['uuid'],
+              version: version_str
+            }
   action    :create
   notifies  :run, 'execute[update-grub]', :immediately
 end
